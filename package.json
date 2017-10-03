@@ -21,7 +21,7 @@
   "typings": "build/index.d.ts",
   "scripts": {
     "compile": "./compile",
-    "postinstall": "./compile"
+    "postinstall": "node compile.js"
   },
   "tonicExampleFilename": "docs/examples/tonic.js",
   "dependencies": {
