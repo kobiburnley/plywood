@@ -20,7 +20,8 @@
   "main": "build/plywood.js",
   "typings": "build/index.d.ts",
   "scripts": {
-    "compile": "./compile"
+    "compile": "./compile",
+    "postinstall": "./compile"
   },
   "tonicExampleFilename": "docs/examples/tonic.js",
   "dependencies": {
