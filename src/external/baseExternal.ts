@@ -276,8 +276,8 @@ export abstract class External {
   }
 
   static versionLessThan(va: string, vb: string): boolean {
-    var pa = va.split('-')[0].split('.');
-    var pb = vb.split('-')[0].split('.');
+    var pa = va.split('-')[0].split('.').map(Number);
+    var pb = vb.split('-')[0].split('.').map(Number);
     if (pa[0] !== pb[0]) return pa[0] < pb[0];
     if (pa[1] !== pb[1]) return pa[1] < pb[1];
     return pa[2] < pb[2];
