@@ -1,5 +1,5 @@
 {
-  "name": "plywood",
+  "name": "@pivot/plywood",
   "version": "0.12.13",
   "description": "split-apply-combine; unify data and vis; with single language",
   "keywords": [
