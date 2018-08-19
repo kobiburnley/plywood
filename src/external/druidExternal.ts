@@ -1359,8 +1359,7 @@ export class DruidExternal extends External {
       if (action instanceof LookupAction) {
         var lookupExtractionFn: Druid.ExtractionFn = {
           type: "registeredLookup",
-          lookup: action.lookup,
-          injective: true
+          lookup: action.lookup
         };
 
         if (this.versionBefore('0.9.1') || /-legacy-lookups/.test(this.version)) {
@@ -1448,8 +1447,7 @@ export class DruidExternal extends External {
           map: {
             "": action.getLiteralValue()
           }
-        },
-        injective: true
+        }
       };
     }
 
