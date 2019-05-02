@@ -8,6 +8,14 @@
     "noImplicitReturns": true,
     "strictNullChecks": false,
     "skipLibCheck": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.iterable",
+      "es2015.promise",
+      "es2015.core",
+      "es2015.collection"
+    ],
     "target": "es5",
     "module": "es6",
     "rootDir": "src",

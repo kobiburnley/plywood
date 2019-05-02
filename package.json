@@ -20,7 +20,8 @@
   "main": "build/plywood.js",
   "typings": "build/index.d.ts",
   "scripts": {
-    "compile": "./compile"
+    "compile": "./compile",
+    "publish-local": "npm publish --registry=http://localhost:4873 --force"
   },
   "tonicExampleFilename": "docs/examples/tonic.js",
   "dependencies": {

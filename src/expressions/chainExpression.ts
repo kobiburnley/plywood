@@ -523,14 +523,14 @@ export class ChainExpression extends Expression {
     return value;
   }
 
-  public _computeResolved(): Q.Promise<PlywoodValue> {
+  public _computeResolved(lastNode: boolean, queryContext?: Lookup<any>): Q.Promise<PlywoodValue> {
     var { expression, actions } = this;
 
     if (expression.isOp('external')) {
-      return expression._computeResolved(false).then((exV) => {
+      return expression._computeResolved(false, queryContext).then((exV) => {
         var newExpression = r(exV).performActions(actions).simplify();
         if (newExpression.hasExternal()) {
-          return newExpression._computeResolved(true);
+          return newExpression._computeResolved(true, queryContext);
         } else {
           return newExpression.getFn()(null, null);
         }
@@ -549,7 +549,7 @@ export class ChainExpression extends Expression {
           if (actionExpression.hasExternal()) {
             return dataset.applyPromise(action.name, (d: Datum) => {
               var simpleExpression = actionExpression.resolve(d).simplify();
-              return simpleExpression._computeResolved(simpleExpression.isOp('external'));
+              return simpleExpression._computeResolved(simpleExpression.isOp('external'), queryContext);
             }, actionExpression.type, null);
           } else {
             return dataset.apply(action.name, actionExpression.getFn(), actionExpression.type, null);
@@ -570,7 +570,7 @@ export class ChainExpression extends Expression {
       };
     }
 
-    var promise = expression._computeResolved(false);
+    var promise = expression._computeResolved(false, queryContext);
     for (var i = 0; i < actions.length; i++) {
       promise = promise.then(execAction(i));
     }

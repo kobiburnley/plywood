@@ -1494,10 +1494,8 @@ export abstract class Expression implements Instance<ExpressionValue, Expression
 
   /**
    * Computes a general asynchronous expression
-   * @param context The context within which to compute the expression
-   * @param environment The environment for the default of the expression
    */
-  public compute(context: Datum = {}, environment: Environment = {}): Q.Promise<PlywoodValue> {
+  public compute(context: Datum = {}, environment: Environment = {}, queryContext?: Lookup<any>): Q.Promise<PlywoodValue> {
     if (!datumHasExternal(context) && !this.hasExternal()) {
       return Q.fcall(() => {
         var referenceChecked = this.defineEnvironment(environment).referenceCheck(context);
@@ -1511,9 +1509,9 @@ export abstract class Expression implements Instance<ExpressionValue, Expression
           // Top level externals need to be unsuppressed
           readyExpression = (<ExternalExpression>readyExpression).unsuppress();
         }
-        return readyExpression._computeResolved(true);
+        return readyExpression._computeResolved(true, queryContext);
       });
   }
 
-  public abstract _computeResolved(lastNode: boolean): Q.Promise<PlywoodValue>
+  public abstract _computeResolved(lastNode: boolean, queryContext?: Lookup<any>): Q.Promise<PlywoodValue>
 }

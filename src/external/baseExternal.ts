@@ -1332,14 +1332,14 @@ export abstract class External {
     throw new Error("can not call getQueryAndPostProcess directly");
   }
 
-  public queryValue(lastNode: boolean, externalForNext: External = null): Q.Promise<PlywoodValue> {
+  public queryValue(lastNode: boolean, queryContext?: Lookup<any>, externalForNext: External = null): Q.Promise<PlywoodValue> {
     const { mode, requester } = this;
 
     if (!externalForNext) externalForNext = this;
 
     var delegate = this.getDelegate();
     if (delegate) {
-      return delegate.queryValue(lastNode, externalForNext);
+      return delegate.queryValue(lastNode, queryContext, externalForNext);
     }
 
     if (!requester) {
@@ -1357,6 +1357,9 @@ export abstract class External {
     }
 
     var finalResult: Q.Promise<PlywoodValue>;
+    Object.assign(query, {
+      context: Object.assign({}, query.context, queryContext)
+    });
     if (next) {
       var results: any[] = [];
       finalResult = promiseWhile(
